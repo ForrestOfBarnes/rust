@@ -1,12 +1,15 @@
 extern crate proc_macro;
 
-use proc_macro::{Literal, Punct, Spacing, TokenStream, TokenTree};
+use proc_macro::TokenStream;
 
 #[proc_macro]
-pub fn add_mul(input: TokenStream) -> TokenStream {
-    let mul_2 = vec![
-        TokenTree::from(Punct::new('*', Spacing::Alone)),
-        TokenTree::from(Literal::u8_unsuffixed(2)),
-    ];
-    input.into_iter().chain(mul_2.into_iter()).collect()
+pub fn clone_identity(tokens: TokenStream) -> TokenStream {
+    tokens.clone()
+}
+
+#[proc_macro]
+pub fn extend_identity(tokens: TokenStream) -> TokenStream {
+    let mut output = TokenStream::new();
+    output.extend(tokens);
+    output
 }
